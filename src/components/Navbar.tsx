@@ -16,14 +16,14 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
         if (mobileMenuOpen) {
             document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'unset';
         }
 
+        // Cleanup on unmount
         return () => {
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'unset';
         };
     }, [mobileMenuOpen]);
-
 
     const mainLinks = [
         { name: "Home", href: "/" },
