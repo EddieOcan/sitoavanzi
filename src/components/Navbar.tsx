@@ -76,127 +76,114 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="lg:hidden fixed inset-0 bg-black/95 backdrop-blur-xl z-40"
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{ type: "tween", duration: 0.3 }}
+                        className="lg:hidden fixed inset-0 bg-black z-40 flex flex-col"
                         onClick={() => setMobileMenuOpen(false)}
                     >
-                        <motion.div
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: 50, opacity: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="h-full overflow-y-auto pt-28 pb-12 px-8"
+                        <div
+                            className="flex-1 overflow-y-auto pt-24 pb-8 px-6"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            {/* Home Link */}
-                            <Link
-                                href="/"
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="group flex items-center gap-3 mb-12 pb-8 border-b border-white/5"
+                            {/* Home */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.1 }}
                             >
-                                <div className="w-1 h-8 bg-orange-500 rounded-full" />
-                                <span className="text-3xl font-black uppercase text-white group-hover:text-orange-500 transition-colors tracking-tighter">
-                                    Home
-                                </span>
-                            </Link>
-
-                            {/* NUOVO Section */}
-                            <div className="mb-16">
-                                <div className="flex items-center gap-4 mb-8">
-                                    <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-500">
-                                        Moto Nuove
-                                    </h2>
-                                    <div className="flex-1 h-px bg-gradient-to-r from-neutral-800 to-transparent" />
-                                </div>
-
-                                <div className="space-y-3">
-                                    {allNewBrands.map((brand, index) => {
-                                        const getHoverClasses = (color: string) => {
-                                            const map: Record<string, { dot: string; text: string }> = {
-                                                orange: { dot: 'group-hover:bg-orange-500', text: 'group-hover:text-orange-500' },
-                                                blue: { dot: 'group-hover:bg-blue-500', text: 'group-hover:text-blue-500' },
-                                                yellow: { dot: 'group-hover:bg-yellow-500', text: 'group-hover:text-yellow-500' },
-                                                green: { dot: 'group-hover:bg-green-500', text: 'group-hover:text-green-500' },
-                                                red: { dot: 'group-hover:bg-red-600', text: 'group-hover:text-red-600' },
-                                                fuchsia: { dot: 'group-hover:bg-fuchsia-500', text: 'group-hover:text-fuchsia-500' },
-                                            };
-                                            return map[color] || map.orange;
-                                        };
-
-                                        const hoverClasses = getHoverClasses(brand.color || 'orange');
-
-                                        return (
-                                            <motion.div
-                                                key={brand.href}
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.1 + index * 0.05 }}
-                                            >
-                                                <Link
-                                                    href={brand.href}
-                                                    onClick={() => setMobileMenuOpen(false)}
-                                                    className="group flex items-center justify-between py-4 px-6 bg-neutral-900/30 border border-neutral-800/50 rounded-xl hover:bg-neutral-900/60 hover:border-white/10 transition-all"
-                                                >
-                                                    <div className="flex items-center gap-4">
-                                                        <div className={`w-1.5 h-1.5 rounded-full bg-neutral-700 ${hoverClasses.dot} transition-colors`} />
-                                                        <span className={`text-lg font-black uppercase tracking-tight text-neutral-400 ${hoverClasses.text} transition-colors`}>
-                                                            {brand.name}
-                                                        </span>
-                                                    </div>
-                                                    <div className="text-neutral-700 group-hover:text-neutral-500 transition-colors">
-                                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                        </svg>
-                                                    </div>
-                                                </Link>
-                                            </motion.div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-
-                            {/* USATO Section */}
-                            <div>
-                                <div className="flex items-center gap-4 mb-8">
-                                    <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-500">
-                                        Moto Usate
-                                    </h2>
-                                    <div className="flex-1 h-px bg-gradient-to-r from-neutral-800 to-transparent" />
-                                </div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.5 }}
+                                <Link
+                                    href="/"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="group flex items-center justify-between py-5 border-b border-neutral-900"
                                 >
-                                    <Link
-                                        href="/usato"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="group relative flex flex-col gap-3 py-6 px-6 bg-teal-500/5 border border-teal-500/20 rounded-2xl hover:bg-teal-500/10 hover:border-teal-500/40 transition-all overflow-hidden"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-br from-teal-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        <div className="relative flex items-center justify-between">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-2 h-2 rounded-full bg-teal-400" />
-                                                <span className="text-xl font-black uppercase tracking-tight text-teal-400 group-hover:text-teal-300 transition-colors">
-                                                    Usato
+                                    <span className="text-lg font-black uppercase text-white tracking-tight">
+                                        Home
+                                    </span>
+                                    <svg className="w-5 h-5 text-neutral-700 group-hover:text-orange-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </Link>
+                            </motion.div>
+
+                            {/* Brands */}
+                            <div className="py-6">
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.15 }}
+                                    className="mb-4"
+                                >
+                                    <h2 className="text-[9px] font-black uppercase tracking-[0.25em] text-neutral-700 px-1">
+                                        Nuovo
+                                    </h2>
+                                </motion.div>
+
+                                {allNewBrands.map((brand, index) => {
+                                    const getAccentColor = (color: string) => {
+                                        const map: Record<string, string> = {
+                                            orange: 'group-hover:text-orange-500',
+                                            blue: 'group-hover:text-blue-500',
+                                            yellow: 'group-hover:text-yellow-500',
+                                            green: 'group-hover:text-green-500',
+                                            red: 'group-hover:text-red-600',
+                                            fuchsia: 'group-hover:text-fuchsia-500',
+                                        };
+                                        return map[color] || map.orange;
+                                    };
+
+                                    return (
+                                        <motion.div
+                                            key={brand.href}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: 0.2 + index * 0.03 }}
+                                        >
+                                            <Link
+                                                href={brand.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="group flex items-center justify-between py-5 border-b border-neutral-900"
+                                            >
+                                                <span className={`text-lg font-black uppercase text-neutral-500 tracking-tight transition-colors ${getAccentColor(brand.color || 'orange')}`}>
+                                                    {brand.name}
                                                 </span>
-                                            </div>
-                                            <div className="text-teal-600 group-hover:text-teal-400 transition-colors">
-                                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <svg className={`w-5 h-5 text-neutral-800 transition-colors ${getAccentColor(brand.color || 'orange')}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                                 </svg>
-                                            </div>
-                                        </div>
-                                        <p className="relative text-xs text-neutral-500 font-medium">
-                                            Scopri le nostre occasioni certificate
-                                        </p>
-                                    </Link>
-                                </motion.div>
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                })}
                             </div>
-                        </motion.div>
+
+                            {/* Usato */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="pt-6"
+                            >
+                                <div className="mb-4">
+                                    <h2 className="text-[9px] font-black uppercase tracking-[0.25em] text-neutral-700 px-1">
+                                        Usato
+                                    </h2>
+                                </div>
+
+                                <Link
+                                    href="/usato"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="group flex items-center justify-between py-5 border-b border-neutral-900"
+                                >
+                                    <span className="text-lg font-black uppercase text-neutral-500 tracking-tight group-hover:text-teal-400 transition-colors">
+                                        Usato Garantito
+                                    </span>
+                                    <svg className="w-5 h-5 text-neutral-800 group-hover:text-teal-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </Link>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

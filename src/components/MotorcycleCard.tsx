@@ -55,21 +55,21 @@ export default function MotorcycleCard({ moto, index, themeColor = "orange", isA
             className="group h-full"
         >
             <Link href={`/catalogo/${moto.slug}`} className="block h-full">
-                <div className={`relative h-full bg-[#0f0f0f] border overflow-hidden transition-all duration-500 ${isActive
-                        ? `${getColorClass('border')} md:border-neutral-800 md:${getColorClass('group-hover-border')}`
-                        : `border-neutral-800 ${getColorClass('group-hover-border')}`
+                <div className={`relative h-full bg-[#0f0f0f] border overflow-hidden transition-all duration-500 rounded-2xl ${isActive
+                    ? `${getColorClass('border')} md:border-neutral-800 md:${getColorClass('group-hover-border')}`
+                    : `border-neutral-800 ${getColorClass('group-hover-border')}`
                     }`}>
 
                     {/* Main Image */}
-                    <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-black rounded-t-2xl">
                         {moto.imageUrl ? (
                             <Image
                                 src={moto.imageUrl}
                                 alt={moto.title}
                                 fill
                                 className={`object-cover transition-all duration-700 ${isActive
-                                        ? 'scale-105 brightness-110 md:scale-100 md:brightness-100 md:group-hover:scale-105 md:group-hover:brightness-110'
-                                        : 'group-hover:scale-105 group-hover:brightness-110'
+                                    ? 'scale-105 brightness-110 md:scale-100 md:brightness-100 md:group-hover:scale-105 md:group-hover:brightness-110'
+                                    : 'group-hover:scale-105 group-hover:brightness-110'
                                     }`}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
@@ -97,8 +97,8 @@ export default function MotorcycleCard({ moto, index, themeColor = "orange", isA
                                 {moto.brand}
                             </div>
                             <h3 className={`text-xl font-black text-white uppercase tracking-tight leading-none mb-3 transition-colors ${isActive
-                                    ? `${getColorClass('text')} md:text-white md:${getColorClass('group-hover-text')}`
-                                    : getColorClass('group-hover-text')
+                                ? `${getColorClass('text')} md:text-white md:${getColorClass('group-hover-text')}`
+                                : getColorClass('group-hover-text')
                                 }`}>
                                 {moto.title}
                             </h3>

@@ -88,7 +88,7 @@ function ServiceCard({ service, index, brandColor = "orange", isActive = false, 
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`group relative bg-neutral-900/50 border p-8 transition-colors duration-500 overflow-hidden ${isActive
+            className={`group relative bg-neutral-900/50 border p-8 transition-colors duration-500 overflow-hidden rounded-2xl ${isActive
                 ? `${colors.border} md:border-neutral-800 md:${colors.hoverBorder}`
                 : `border-neutral-800 ${colors.hoverBorder}`
                 }`}
@@ -185,7 +185,7 @@ export default function Services({ brandColor = "orange" }: { brandColor?: strin
                 </div>
 
                 {/* Services Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {services.map((service, index) => (
                         <ServiceCard
                             key={index}

@@ -222,8 +222,19 @@ export default function CatalogGrid({
             {/* Sidebar Filters - Desktop Sticky / Mobile Collapsible */}
             <aside className="w-full lg:w-[280px] lg:sticky lg:top-24 flex-shrink-0">
 
+                {/* Mobile Toggle Button */}
+                <button
+                    onClick={() => setShowFilters(!showFilters)}
+                    className={`lg:hidden w-full py-4 border-b border-neutral-900 flex items-center justify-between text-white transition-colors group ${showFilters ? 'mb-6' : 'mb-2'}`}
+                >
+                    <span className="text-sm font-black uppercase tracking-tight text-neutral-400 group-hover:text-white transition-colors">
+                        {showFilters ? "Nascondi Filtri" : "Cerca la tua moto"}
+                    </span>
+                    <SlidersHorizontal className={`w-5 h-5 ${getThemeColorClass('text')} transition-transform ${showFilters ? 'rotate-90' : ''}`} />
+                </button>
+
                 {/* Filters Container */}
-                <div className="block space-y-4">
+                <div className={`${showFilters ? 'block' : 'hidden'} lg:block space-y-4`}>
 
                     {/* Search Bar - Clean Design */}
                     <div className="relative group">
