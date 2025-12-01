@@ -107,19 +107,14 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
                                 </Link>
                             </motion.div>
 
-                            {/* Brands */}
-                            <div className="py-6">
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.15 }}
-                                    className="mb-4"
-                                >
-                                    <h2 className="text-[9px] font-black uppercase tracking-[0.25em] text-neutral-700 px-1">
-                                        Nuovo
-                                    </h2>
-                                </motion.div>
+                            {/* NUOVO - Inline Header */}
+                            <div className="flex items-center gap-3 py-2 mt-16">
+                                <div className="text-xs font-black uppercase tracking-widest text-neutral-600">Nuovo</div>
+                                <div className="flex-1 h-px bg-gradient-to-r from-orange-500 to-transparent"></div>
+                            </div>
 
+                            {/* Brands */}
+                            <div>
                                 {allNewBrands.map((brand, index) => {
                                     const getAccentColor = (color: string) => {
                                         const map: Record<string, string> = {
@@ -157,18 +152,18 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
                                 })}
                             </div>
 
+                            {/* USATO - Inline Header */}
+                            <div className="flex items-center gap-3 py-2 mt-16">
+                                <div className="text-xs font-black uppercase tracking-widest text-neutral-600">Usato</div>
+                                <div className="flex-1 h-px bg-gradient-to-r from-teal-400 to-transparent"></div>
+                            </div>
+
                             {/* Usato */}
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.5 }}
-                                className="pt-6"
                             >
-                                <div className="mb-4">
-                                    <h2 className="text-[9px] font-black uppercase tracking-[0.25em] text-neutral-700 px-1">
-                                        Usato
-                                    </h2>
-                                </div>
 
                                 <Link
                                     href="/usato"
