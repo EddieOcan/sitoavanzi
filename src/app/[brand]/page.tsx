@@ -108,28 +108,30 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
         <div className="min-h-screen bg-neutral-950 pt-40 pb-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Modern Header */}
-                <div className="relative mb-6 lg:mb-12 pt-8">
-                    {/* Decorative Background Elements */}
-                    <div className={`absolute top-0 right-0 w-64 h-64 ${themeClasses.bgBlur} rounded-full blur-3xl -z-10`} />
-
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                        <div className="relative">
-                            {/* Small Overline */}
-                            <div className="flex items-center gap-2 mb-2">
+                <div className="relative mb-12">
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8 pt-10">
+                        <div className="max-w-4xl">
+                            <div className="flex items-center gap-3 mb-6">
                                 <div className={`w-2 h-2 ${themeClasses.bg} rounded-full`} />
-                                <span className={`${themeClasses.text} text-xs font-bold uppercase tracking-[0.2em]`}>
+                                <span className={`${themeClasses.text} font-mono text-sm tracking-[0.3em] uppercase`}>
                                     Concessionario Ufficiale
                                 </span>
+                                <div className={`h-px w-12 ${themeClasses.bg}/50`} />
                             </div>
 
-                            {/* Main Title */}
-                            <h1 className="text-6xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">
-                                {theme.title}
-                            </h1>
+                            <h2 className="text-6xl md:text-8xl font-black text-white uppercase tracking-tighter leading-[0.85]">
+                                Gamma <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 stroke-text">
+                                    {theme.title}
+                                </span>
+                            </h2>
+                        </div>
 
-                            {/* Subtitle */}
-                            <p className={`text-neutral-400 text-lg max-w-xl mt-4 font-light border-l-2 ${themeClasses.border}/50 pl-4`}>
-                                {theme.subtitle}
+                        <div className="flex flex-col items-start md:items-end gap-6">
+                            <p className={`text-neutral-400 max-w-md md:text-right text-lg leading-relaxed border-l-2 md:border-l-0 md:border-r-2 ${themeClasses.border} pl-4 md:pl-0 md:pr-4`}>
+                                {theme.subtitle} <br />
+                                <span className="text-white font-bold">Prestazioni e stile</span> <br />
+                                senza compromessi.
                             </p>
                         </div>
                     </div>

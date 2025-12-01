@@ -55,13 +55,13 @@ export default function MotorcycleCard({ moto, index, themeColor = "orange", isA
             className="group h-full"
         >
             <Link href={`/catalogo/${moto.slug}`} className="block h-full">
-                <div className={`relative h-full bg-[#0f0f0f] border overflow-hidden transition-all duration-500 rounded-2xl ${isActive
+                <div className={`relative h-full bg-[#0f0f0f] border overflow-hidden transition-all duration-500 ${isActive
                     ? `${getColorClass('border')} md:border-neutral-800 md:${getColorClass('group-hover-border')}`
                     : `border-neutral-800 ${getColorClass('group-hover-border')}`
                     }`}>
 
                     {/* Main Image */}
-                    <div className="relative aspect-[4/3] overflow-hidden bg-black rounded-t-2xl">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-black">
                         {moto.imageUrl ? (
                             <Image
                                 src={moto.imageUrl}

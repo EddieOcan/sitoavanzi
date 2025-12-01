@@ -31,8 +31,8 @@ export default function FeatureSections({ sections }: FeatureSectionsProps) {
                         >
                             {/* Image Block */}
                             <motion.div
-                                initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                                 className={`relative aspect-square bg-neutral-900 overflow-hidden group ${isEven ? 'md:order-1' : 'md:order-2'}`}
@@ -48,10 +48,10 @@ export default function FeatureSections({ sections }: FeatureSectionsProps) {
 
                             {/* Text Block */}
                             <motion.div
-                                initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.8 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
                                 className={`relative aspect-square bg-neutral-900 border border-neutral-800 flex items-center justify-center p-8 md:p-12 lg:p-16 group hover:bg-neutral-800 transition-colors duration-500 ${isEven ? 'md:order-2' : 'md:order-1'}`}
                             >
                                 {/* Decorative corner elements */}

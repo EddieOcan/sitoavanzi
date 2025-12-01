@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { getMotorcycles } from "@/lib/sanity.fetch";
 import React from "react";
-
-const outfit = Outfit({
-    subsets: ["latin"],
-    variable: "--font-outfit",
-    display: "swap",
-});
 
 export const metadata: Metadata = {
     title: "Avanzi Moto",
@@ -28,10 +22,10 @@ export default async function RootLayout({
 }>) {
     // Fetch motorcycles to determine available brands for the Navbar
     let availableBrands: string[] = [];
-    
+
     try {
         const motorcycles: Motorcycle[] = await getMotorcycles();
-        
+
         // Filter brands that have at least one NEW bike
         availableBrands = Array.from(new Set(
             motorcycles
@@ -46,7 +40,7 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={`${outfit.variable} antialiased font-sans bg-neutral-950 text-white`}
+                className={`${GeistSans.className} antialiased bg-neutral-950 text-white`}
             >
                 <Navbar availableBrands={availableBrands} />
                 {children}

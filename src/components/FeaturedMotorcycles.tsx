@@ -110,16 +110,33 @@ export default function FeaturedMotorcycles() {
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-950">
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-8 mb-10 md:border-b border-neutral-800 md:pb-8 text-center md:text-left">
-                    <div>
-                        <h2 className="text-orange-500 font-bold tracking-[0.2em] uppercase text-sm mb-2">La nostra selezione</h2>
-                        <h3 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight">
-                            Moto in Evidenza
-                        </h3>
+                <div className="relative mb-12">
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8 pt-10">
+                        <div className="max-w-4xl">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                                <span className="text-orange-500 font-mono text-sm tracking-[0.3em] uppercase">
+                                    La nostra selezione
+                                </span>
+                                <div className="h-px w-12 bg-orange-500/50" />
+                            </div>
+
+                            <h2 className="text-6xl md:text-8xl font-black text-white uppercase tracking-tighter leading-[0.85]">
+                                Moto in <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 stroke-text">
+                                    Evidenza
+                                </span>
+                            </h2>
+                        </div>
+
+                        <div className="flex flex-col items-start md:items-end gap-6">
+                            <p className="text-neutral-400 max-w-md md:text-right text-lg leading-relaxed border-l-2 md:border-l-0 md:border-r-2 border-orange-500 pl-4 md:pl-0 md:pr-4">
+                                Scopri le migliori occasioni e le ultime novità <br />
+                                <span className="text-white font-bold">disponibili subito</span> <br />
+                                in concessionaria.
+                            </p>
+                        </div>
                     </div>
-                    <p className="text-neutral-400 max-w-md text-center md:text-right">
-                        Scopri le migliori occasioni e le ultime novità disponibili subito in concessionaria.
-                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

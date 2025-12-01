@@ -28,30 +28,41 @@ export default function Hero({ heroImageUrl }: HeroProps) {
             {/* Hero Content - Centered */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
                     className="max-w-4xl text-center"
                 >
 
 
                     {/* Small Overline */}
-                    <div className="flex items-center justify-center gap-2 mb-6">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="flex items-center justify-center gap-2 mb-8"
+                    >
                         <span className="text-orange-500 text-xs font-bold uppercase tracking-[0.2em]">
                             Brescia, dal 1950
                         </span>
-                    </div>
+                    </motion.div>
 
                     {/* Main Title */}
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight leading-none mb-8">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.5 }}
+                        className="text-5xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight leading-none mb-8"
+                    >
                         Avanzi Moto
-                    </h1>
+                    </motion.h1>
 
                     {/* Main Description */}
-                    <p className="text-neutral-200 text-lg md:text-xl lg:text-2xl font-light mb-10 leading-relaxed max-w-2xl mx-auto">
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.7 }}
+                        className="text-neutral-200 text-lg md:text-xl lg:text-2xl font-light leading-relaxed max-w-2xl mx-auto"
+                    >
                         Concessionario ufficiale di moto <span className="text-orange-500 font-bold">KTM</span>, <span className="text-orange-500 font-bold">HUSQVARNA</span>, <span className="text-orange-500 font-bold">KYMCO</span> e <span className="text-orange-500 font-bold">VOGE</span> a Bagnolo Mella, in provincia di Brescia.
-                    </p>
+                    </motion.p>
 
                 </motion.div>
             </div>

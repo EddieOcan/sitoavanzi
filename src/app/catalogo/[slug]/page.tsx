@@ -162,7 +162,7 @@ export default async function MotorcyclePage({ params }: { params: Promise<{ slu
             </div>
 
             {/* Services Section */}
-            <Services brandColor={brandColor} />
+            <Services />
         </main>
     );
 }
