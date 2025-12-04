@@ -171,9 +171,14 @@ export default function CatalogGrid({
     };
 
     const availableBrands = useMemo(() => {
-        const brands = new Set(motorcycles.map(m => m.brand));
+        let filtered = motorcycles;
+        // If we are on the used page, only show brands that have used bikes
+        if (isUsed) {
+            filtered = motorcycles.filter(m => m.isUsed);
+        }
+        const brands = new Set(filtered.map(m => m.brand));
         return Array.from(brands).sort();
-    }, [motorcycles]);
+    }, [motorcycles, isUsed]);
 
     // Scroll spotlight tracking for mobile
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -268,7 +273,7 @@ export default function CatalogGrid({
                                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                                 className="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-white/10 rounded-t-3xl z-50 lg:hidden max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl"
                             >
-                                <div className="p-4 space-y-5">
+                                <div className="sticky top-0 bg-[#0f0f0f] z-10 p-4 pb-2 border-b border-white/5">
                                     <div className="flex items-center justify-between pl-2">
                                         <h3 className="text-lg font-mono font-bold text-white uppercase tracking-wider">Filtri</h3>
                                         <button
@@ -278,114 +283,114 @@ export default function CatalogGrid({
                                             <X className="w-5 h-5" />
                                         </button>
                                     </div>
+                                </div>
 
-                                    {/* Mobile Filter Content - Reusing the same structure as desktop but in drawer */}
-                                    <div className="space-y-8">
-                                        {/* Search */}
-                                        <div className="relative">
-                                            <div className="relative flex items-center bg-neutral-900 border border-neutral-800 rounded-xl p-1.5 transition-all focus-within:border-neutral-700 focus-within:shadow-lg focus-within:shadow-black/50">
-                                                <div className="p-2 text-neutral-500">
-                                                    <Search className="w-5 h-5" />
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Cerca moto..."
-                                                    value={searchQuery}
-                                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                                    className="w-full bg-transparent text-white text-base font-medium px-1 py-2 focus:outline-none placeholder:text-neutral-600 placeholder:font-mono placeholder:uppercase placeholder:tracking-wider placeholder:font-bold"
-                                                />
-                                                {searchQuery && (
-                                                    <button
-                                                        onClick={() => setSearchQuery("")}
-                                                        className="p-2 text-neutral-600 hover:text-white transition-colors"
-                                                    >
-                                                        <X className="w-4 h-4" />
-                                                    </button>
-                                                )}
+                                {/* Mobile Filter Content - Reusing the same structure as desktop but in drawer */}
+                                <div className="space-y-8 p-4 pt-6">
+                                    {/* Search */}
+                                    <div className="relative">
+                                        <div className="relative flex items-center bg-neutral-900 border border-neutral-800 rounded-xl p-1.5 transition-all focus-within:border-neutral-700 focus-within:shadow-lg focus-within:shadow-black/50">
+                                            <div className="p-2 text-neutral-500">
+                                                <Search className="w-5 h-5" />
                                             </div>
+                                            <input
+                                                type="text"
+                                                placeholder="Cerca moto..."
+                                                value={searchQuery}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                className="w-full bg-transparent text-white text-base font-medium px-1 py-2 focus:outline-none placeholder:text-neutral-600 placeholder:font-mono placeholder:uppercase placeholder:tracking-wider placeholder:font-bold"
+                                            />
+                                            {searchQuery && (
+                                                <button
+                                                    onClick={() => setSearchQuery("")}
+                                                    className="p-2 text-neutral-600 hover:text-white transition-colors"
+                                                >
+                                                    <X className="w-4 h-4" />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Filters */}
+                                    <div className="space-y-8 px-4">
+                                        {/* Brand Filter (Mobile) */}
+                                        {!brand && (
+                                            <div className="space-y-8">
+                                                <label className="block mb-4 text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Marchio</label>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {availableBrands.map(b => (
+                                                        <button
+                                                            key={b}
+                                                            onClick={() => toggleBrand(b)}
+                                                            className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide border transition-all ${filters.selectedBrands.includes(b)
+                                                                ? `${getThemeColorClass('bg')} border-transparent text-white`
+                                                                : 'bg-neutral-900 border-neutral-800 text-neutral-400'
+                                                                }`}
+                                                        >
+                                                            {b}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Year Slider */}
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center">
+                                                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Anno</label>
+                                                <div className="text-xs font-mono font-medium text-white bg-neutral-900 px-2 py-1 rounded border border-neutral-800">
+                                                    {filters.yearRange[0]} - {filters.yearRange[1]}
+                                                </div>
+                                            </div>
+                                            <RangeSlider
+                                                min={bounds.year.min}
+                                                max={bounds.year.max}
+                                                value={filters.yearRange}
+                                                onChange={(val) => handleFilterChange('yearRange', val)}
+                                                color={themeColor}
+                                            />
                                         </div>
 
-                                        {/* Filters */}
-                                        <div className="space-y-8 px-4">
-                                            {/* Brand Filter (Mobile) */}
-                                            {!brand && (
-                                                <div className="space-y-4">
-                                                    <label className="text-xs font-bold text-neutral-500 uppercase tracking-widest">Marchio</label>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {availableBrands.map(b => (
-                                                            <button
-                                                                key={b}
-                                                                onClick={() => toggleBrand(b)}
-                                                                className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide border transition-all ${filters.selectedBrands.includes(b)
-                                                                    ? `${getThemeColorClass('bg')} border-transparent text-white`
-                                                                    : 'bg-neutral-900 border-neutral-800 text-neutral-400'
-                                                                    }`}
-                                                            >
-                                                                {b}
-                                                            </button>
-                                                        ))}
-                                                    </div>
+                                        {/* Price Slider */}
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center">
+                                                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Prezzo</label>
+                                                <div className="text-xs font-mono font-medium text-white bg-neutral-900 px-2 py-1 rounded border border-neutral-800">
+                                                    {formatPrice(filters.priceRange[0])} - {formatPrice(filters.priceRange[1])}
                                                 </div>
-                                            )}
-
-                                            {/* Year Slider */}
-                                            <div className="space-y-3">
-                                                <div className="flex justify-between items-center">
-                                                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Anno</label>
-                                                    <div className="text-xs font-mono font-medium text-white bg-neutral-900 px-2 py-1 rounded border border-neutral-800">
-                                                        {filters.yearRange[0]} - {filters.yearRange[1]}
-                                                    </div>
-                                                </div>
-                                                <RangeSlider
-                                                    min={bounds.year.min}
-                                                    max={bounds.year.max}
-                                                    value={filters.yearRange}
-                                                    onChange={(val) => handleFilterChange('yearRange', val)}
-                                                    color={themeColor}
-                                                />
                                             </div>
+                                            <RangeSlider
+                                                min={bounds.price.min}
+                                                max={bounds.price.max}
+                                                step={100}
+                                                value={filters.priceRange}
+                                                onChange={(val) => handleFilterChange('priceRange', val)}
+                                                color={themeColor}
+                                            />
+                                        </div>
 
-                                            {/* Price Slider */}
-                                            <div className="space-y-3">
-                                                <div className="flex justify-between items-center">
-                                                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Prezzo</label>
-                                                    <div className="text-xs font-mono font-medium text-white bg-neutral-900 px-2 py-1 rounded border border-neutral-800">
-                                                        {formatPrice(filters.priceRange[0])} - {formatPrice(filters.priceRange[1])}
-                                                    </div>
+                                        {/* Displacement Slider */}
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center">
+                                                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Cilindrata</label>
+                                                <div className="text-xs font-mono font-medium text-white bg-neutral-900 px-2 py-1 rounded border border-neutral-800">
+                                                    {filters.displacementRange[0]}cc - {filters.displacementRange[1]}cc
                                                 </div>
-                                                <RangeSlider
-                                                    min={bounds.price.min}
-                                                    max={bounds.price.max}
-                                                    step={100}
-                                                    value={filters.priceRange}
-                                                    onChange={(val) => handleFilterChange('priceRange', val)}
-                                                    color={themeColor}
-                                                />
                                             </div>
-
-                                            {/* Displacement Slider */}
-                                            <div className="space-y-3">
-                                                <div className="flex justify-between items-center">
-                                                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Cilindrata</label>
-                                                    <div className="text-xs font-mono font-medium text-white bg-neutral-900 px-2 py-1 rounded border border-neutral-800">
-                                                        {filters.displacementRange[0]}cc - {filters.displacementRange[1]}cc
-                                                    </div>
-                                                </div>
-                                                <RangeSlider
-                                                    min={bounds.displacement.min}
-                                                    max={bounds.displacement.max}
-                                                    step={50}
-                                                    value={filters.displacementRange}
-                                                    onChange={(val) => handleFilterChange('displacementRange', val)}
-                                                    color={themeColor}
-                                                />
-                                            </div>
+                                            <RangeSlider
+                                                min={bounds.displacement.min}
+                                                max={bounds.displacement.max}
+                                                step={50}
+                                                value={filters.displacementRange}
+                                                onChange={(val) => handleFilterChange('displacementRange', val)}
+                                                color={themeColor}
+                                            />
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Drawer Footer */}
-                                <div className="p-6 border-t border-white/10 bg-neutral-900/50 mt-auto sticky bottom-0">
+                                <div className="p-6 border-t border-white/10 bg-neutral-900/50">
                                     <button
                                         onClick={() => setShowFilters(false)}
                                         className="w-full py-3 bg-white text-black font-mono text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-neutral-200 transition-colors"
@@ -431,8 +436,8 @@ export default function CatalogGrid({
                     <div className="space-y-8">
                         {/* Brand Filter (Desktop) */}
                         {!brand && (
-                            <div className="space-y-4">
-                                <label className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">Marchio</label>
+                            <div className="space-y-8">
+                                <label className="block mb-4 text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Marchio</label>
                                 <div className="space-y-2">
                                     {availableBrands.map(b => (
                                         <label key={b} className="flex items-center gap-3 cursor-pointer group">

@@ -3,9 +3,10 @@ import { urlFor } from "@/sanity/lib/image";
 import ImageSlider from "@/components/ImageSlider";
 import ConfiguratorForm from "@/components/ConfiguratorForm";
 
-import { Calendar, Gauge, Info, CheckCircle2 } from "lucide-react";
+import { Calendar, Gauge, Info, CheckCircle2, ArrowLeft } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -60,19 +61,24 @@ export default async function MotorcyclePage({ params }: { params: Promise<{ slu
 
                 {/* Header Section */}
                 <div className="mb-8">
-                    <div className={`text-sm font-black uppercase tracking-[0.2em] mb-2 ${textClass}`}>
-                        {motorcycle.brand}
-                    </div>
+                    <Link
+                        href={`/${motorcycle.brand.toLowerCase()}`}
+                        className={`inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider mb-6 hover:opacity-80 transition-opacity ${textClass}`}
+                    >
+                        <ArrowLeft className="w-4 h-4" />
+                        Torna al catalogo {motorcycle.brand}
+                    </Link>
+
                     <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight mb-4">
-                        {motorcycle.title}
+                        {motorcycle.brand} {motorcycle.title} {motorcycle.year}
                     </h1>
-                    <p className="text-neutral-400 text-lg leading-relaxed">
+                    <p className="text-neutral-400 text-base md:text-lg leading-relaxed">
                         {motorcycle.summary}
                     </p>
                 </div>
 
                 {/* Image Slider - Full Width */}
-                <div className="mb-12">
+                <div className="mb-6 md:mb-8">
                     <ImageSlider images={motorcycle.images} title={motorcycle.title} />
                 </div>
 
@@ -82,15 +88,15 @@ export default async function MotorcyclePage({ params }: { params: Promise<{ slu
                     <div className="lg:col-span-7 space-y-6">
 
                         {/* Price Section - Minimal & Elegant */}
-                        <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 p-10 text-center group hover:border-${brandColor}-${shade}/30 transition-all duration-500`}>
+                        <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 p-10 text-center group hover:border-${brandColor}-${shade} transition-all duration-500`}>
                             {/* Subtle accent line */}
                             <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-${brandColor}-${shade}/50 to-transparent`} />
 
                             <div className="space-y-6">
                                 <div className="flex items-center justify-center gap-3">
-                                    <div className="h-px flex-1 bg-gradient-to-r from-transparent to-neutral-800" />
-                                    <span className="text-[9px] text-neutral-500 uppercase font-bold tracking-[0.3em]">Prezzo</span>
-                                    <div className="h-px flex-1 bg-gradient-to-l from-transparent to-neutral-800" />
+                                    <div className={`h-px flex-1 bg-gradient-to-r from-transparent to-${brandColor}-${shade}`} />
+                                    <span className={`text-[9px] ${textClass} uppercase font-bold tracking-[0.3em]`}>Prezzo</span>
+                                    <div className={`h-px flex-1 bg-gradient-to-l from-transparent to-${brandColor}-${shade}`} />
                                 </div>
 
                                 <div className="relative">
@@ -110,30 +116,29 @@ export default async function MotorcyclePage({ params }: { params: Promise<{ slu
                             </div>
                         </div>
 
-                        {/* Other Info - Grid */}
-                        <div className="grid grid-cols-3 gap-4">
-                            <div className={`bg-[#0f0f0f] border border-neutral-800 rounded-xl p-5 text-center group hover:border-${brandColor}-${shade}/50 transition-all`}>
+                        {/* Other Info - Unified Container */}
+                        <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 grid grid-cols-3 divide-x divide-neutral-800">
+                            <div className="text-center px-2">
                                 <Calendar className={`w-5 h-5 ${textClass} mx-auto mb-2`} />
                                 <div className="text-[9px] text-neutral-600 uppercase font-bold tracking-wider mb-2">Anno</div>
-                                <div className="text-2xl font-black text-white font-mono">{motorcycle.year}</div>
+                                <div className="text-xl md:text-2xl font-black text-white font-mono">{motorcycle.year}</div>
                             </div>
-                            <div className={`bg-[#0f0f0f] border border-neutral-800 rounded-xl p-5 text-center group hover:border-${brandColor}-${shade}/50 transition-all`}>
+                            <div className="text-center px-2">
                                 <Gauge className={`w-5 h-5 ${textClass} mx-auto mb-2`} />
-                                <div className="text-[9px] text-neutral-600 uppercase font-bold tracking-wider mb-2">Chilometri</div>
-                                <div className="text-2xl font-black text-white font-mono">
+                                <div className="text-[9px] text-neutral-600 uppercase font-bold tracking-wider mb-2">Km</div>
+                                <div className="text-xl md:text-2xl font-black text-white font-mono">
                                     {motorcycle.isUsed ? (motorcycle.kilometers ? motorcycle.kilometers.toLocaleString('it-IT') : '0') : 'Nuova'}
                                 </div>
                             </div>
-                            <div className={`bg-[#0f0f0f] border border-neutral-800 rounded-xl p-5 text-center group hover:border-${brandColor}-${shade}/50 transition-all`}>
+                            <div className="text-center px-2">
                                 <span className={`${textClass} font-bold text-sm mx-auto block mb-2`}>CC</span>
                                 <div className="text-[9px] text-neutral-600 uppercase font-bold tracking-wider mb-2">Cilindrata</div>
-                                <div className="text-2xl font-black text-white font-mono">{motorcycle.displacement}</div>
+                                <div className="text-xl md:text-2xl font-black text-white font-mono">{motorcycle.displacement}</div>
                             </div>
                         </div>
 
                         {/* Description */}
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-white">Descrizione</h2>
                             {motorcycle.catchphrase && (
                                 <p className={`text-xl text-neutral-200 font-medium italic border-l-4 ${borderClass} pl-4 py-1`}>
                                     "{motorcycle.catchphrase}"

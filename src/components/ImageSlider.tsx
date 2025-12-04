@@ -45,7 +45,7 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
 
     if (!images || images.length === 0) {
         return (
-            <div className="relative w-full aspect-[16/10] bg-neutral-900 rounded-2xl flex items-center justify-center">
+            <div className="relative w-full aspect-square md:aspect-[16/10] bg-neutral-900 rounded-2xl flex items-center justify-center">
                 <p className="text-neutral-600">Nessuna immagine disponibile</p>
             </div>
         );
@@ -54,7 +54,7 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
     return (
         <>
             {/* Main Image with Modern Frame */}
-            <div className="relative w-full aspect-[16/10] bg-neutral-950 rounded-2xl overflow-hidden border border-neutral-800 group">
+            <div className="relative w-full aspect-square md:aspect-[16/10] bg-neutral-950 rounded-2xl overflow-hidden border border-neutral-800 group">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                     <motion.div
                         key={currentIndex}
