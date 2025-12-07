@@ -5,15 +5,20 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 
+import { SanityImage } from "@/types";
+import { urlFor } from "@/sanity/lib/image";
+
 interface ImageSliderProps {
-    images: string[];
+    images?: SanityImage[];
     title: string;
 }
 
-export default function ImageSlider({ images, title }: ImageSliderProps) {
+export default function ImageSlider({ images = [], title }: ImageSliderProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0);
     const [isFullscreen, setIsFullscreen] = useState(false);
+
+    // ... (keep state variants and helper functions same)
 
     const slideVariants = {
         enter: (direction: number) => ({
@@ -80,7 +85,7 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
                         className="absolute inset-0 cursor-grab active:cursor-grabbing"
                     >
                         <Image
-                            src={images[currentIndex]}
+                            src={urlFor(images[currentIndex]).width(1200).url()}
                             alt={`${title} - Immagine ${currentIndex + 1}`}
                             fill
                             className="object-contain"
@@ -194,7 +199,7 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
                                     className="relative w-full h-full"
                                 >
                                     <Image
-                                        src={images[currentIndex]}
+                                        src={urlFor(images[currentIndex]).width(1920).fit('max').url()}
                                         alt={`${title} - Immagine ${currentIndex + 1}`}
                                         fill
                                         className="object-contain"

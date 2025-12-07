@@ -16,7 +16,7 @@ async function getMotorcycle(slug: string) {
         _id,
         title,
         "slug": slug.current,
-        "images": images[].asset->url,
+        images,
         price,
         brand,
         year,

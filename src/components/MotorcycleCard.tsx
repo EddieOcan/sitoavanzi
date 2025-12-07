@@ -5,22 +5,8 @@ import Link from "next/link";
 import { Calendar, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
 import { formatPrice } from "@/lib/utils";
-
-type Motorcycle = {
-    _id: string;
-    title: string;
-    slug: string;
-    imageUrl?: string;
-    price: number;
-    brand: string;
-    year: number;
-    displacement?: number;
-    description?: string;
-    isUsed?: boolean;
-    kilometers?: number;
-    catchphrase?: string;
-    summary?: string;
-};
+import { Motorcycle } from "@/types";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function MotorcycleCard({ moto, index, themeColor = "orange", isActive = false, cardRef }: { moto: Motorcycle; index: number; themeColor?: string; isActive?: boolean; cardRef?: any }) {
     const getColorClass = (type: 'text' | 'bg' | 'border' | 'group-hover-border' | 'group-hover-text' | 'border-accent') => {
@@ -46,6 +32,8 @@ export default function MotorcycleCard({ moto, index, themeColor = "orange", isA
         }
     };
 
+    const mainImage = moto.images && moto.images.length > 0 ? moto.images[0] : null;
+
     return (
         <motion.div
             ref={cardRef}
@@ -62,9 +50,9 @@ export default function MotorcycleCard({ moto, index, themeColor = "orange", isA
 
                     {/* Main Image */}
                     <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                        {moto.imageUrl ? (
+                        {mainImage ? (
                             <Image
-                                src={moto.imageUrl}
+                                src={urlFor(mainImage).width(600).url()}
                                 alt={moto.title}
                                 fill
                                 className={`object-cover transition-all duration-700 ${isActive

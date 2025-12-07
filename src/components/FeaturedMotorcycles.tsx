@@ -6,28 +6,14 @@ import { motion } from "framer-motion";
 import MotorcycleCard from "@/components/MotorcycleCard";
 import { urlFor } from "@/sanity/lib/image";
 
-type Motorcycle = {
-    _id: string;
-    title: string;
-    slug: string;
-    imageUrl?: string;
-    price: number;
-    brand: string;
-    year: number;
-    displacement?: number;
-    description?: string;
-    isUsed?: boolean;
-    kilometers?: number;
-    catchphrase?: string;
-    summary?: string;
-};
+import { Motorcycle } from "@/types";
 
 async function getFeaturedMotorcycles() {
     const query = `*[_type == "motorcycle" && isFeatured == true][0...6] {
         _id,
         title,
         "slug": slug.current,
-        "imageUrl": images[0].asset->url,
+        images,
         price,
         brand,
         year,

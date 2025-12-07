@@ -7,21 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import RangeSlider from "./ui/RangeSlider";
 import { formatPrice } from "@/lib/utils";
 
-type Motorcycle = {
-    _id: string;
-    title: string;
-    slug: string;
-    imageUrl?: string;
-    price: number;
-    brand: string;
-    year: number;
-    displacement?: number;
-    description?: string;
-    isUsed?: boolean;
-    kilometers?: number;
-    catchphrase?: string;
-    summary?: string;
-};
+import { Motorcycle } from "@/types";
 
 export default function CatalogGrid({
     motorcycles,

@@ -203,7 +203,7 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className="relative group px-5 py-3 rounded-full transition-colors"
+                                className="relative group px-5 py-3 rounded-full transition-colors flex items-center"
                             >
                                 <span className={`text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${isActive ? "text-white" : "text-neutral-400"} ${colorClass}`}>
                                     {link.name}
@@ -227,7 +227,7 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
                             onMouseEnter={() => setHoveredDropdown(true)}
                             onMouseLeave={() => setHoveredDropdown(false)}
                         >
-                            <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors translate-y-[2px]">
+                            <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">
                                 Altro <ChevronDown className="w-3 h-3" />
                             </div>
 
@@ -249,7 +249,7 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
                                                 <Link
                                                     key={brand.href}
                                                     href={brand.href}
-                                                    className={`block px-4 py-3 text-xs font-bold uppercase tracking-widest text-neutral-400 ${hoverColorClass} hover:bg-white/5 transition-colors text-center`}
+                                                    className={`block px-4 py-3 text-xs font-bold uppercase tracking-widest text-neutral-400 ${hoverColorClass} transition-colors text-center`}
                                                 >
                                                     {brand.name}
                                                 </Link>
@@ -262,20 +262,21 @@ export default function Navbar({ availableBrands = [] }: { availableBrands?: str
                     )}
 
                     {/* Divider */}
-                    <div className="w-px h-6 bg-white/10 mx-2" />
+                    <div className="w-px h-6 bg-neutral-700 mx-2 shrink-0" />
 
                     {/* Usato Link - Distinct Style */}
                     <Link
                         href="/usato"
-                        className={`relative px-6 py-3 rounded-full transition-all duration-300 group overflow-hidden ${pathname === '/usato' ? 'bg-teal-500/20 text-teal-400' : 'hover:bg-teal-500/10 text-neutral-400 hover:text-teal-400'}`}
+                        className={`relative px-5 py-3 rounded-full transition-all duration-300 group overflow-hidden ${pathname === '/usato' ? 'text-teal-400' : 'text-neutral-400 hover:text-teal-400'}`}
                     >
-                        <span className="relative z-10 text-xs font-black uppercase tracking-widest flex items-center gap-2">
+                        <span className="relative z-10 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
                             Usato
                         </span>
                         {pathname === '/usato' && (
                             <motion.div
                                 layoutId="navbar-bg-usato"
-                                className="absolute inset-0 border border-teal-500/30 rounded-full"
+                                className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                             />
                         )}
                     </Link>
